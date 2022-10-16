@@ -1,24 +1,35 @@
 # jjonggi.com
 
-Routes
+Route -> Controller -> Template
 
 <!-- globalRouter -->
 
-/ -> Home
-/join -> Join
-/login -> Login
-/search -> Search
-
-<!-- userRouter -->
-
-/users/edit -> Edit User
-/users/delete -> Delete User
+/ -> (po) showMainPostings
+/join -> (us) join -> home.pug
+/login -> (us) login
+/search -> (us) search
 
 <!-- postingsRouter -->
 
-/postings/see
-/postings/edit
-/postings/delete
-/postings/comments
-/postings/comments/edit
-/postings/comments/delete
+/postings/:id -> showPosting -> showPosting.pug
+/postings/:id/edit -> edit -> edit.pug
+/postings/:id/delete -> deletePosting
+/postings/upload -> upload
+/postings/:id/comments
+/postings/:id/comments/edit
+/postings/:id/comments/delete
+
+<!-- userRouter -->
+
+/users/edit -> edit
+/users/delete -> deleteAccount
+/users/logout -> logout
+/users/:id -> see
+
+<!-- templates -->
+
+base.pug (pageTitle)
+=> partials/footer
+
+home.pug, showPostings.pug
+=> mixins/post
