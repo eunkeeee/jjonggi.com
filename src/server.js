@@ -1,14 +1,13 @@
 import express from "express";
 import morgan from "morgan";
+import globalRouter from "./routers/globalRouter";
+import postingsRouter from "./routers/postingsRouter";
+import userRouter from "./routers/userRouter";
 
 const app = express();
 const PORT = 4000;
 
 app.use(morgan("dev"));
-
-const globalRouter = express.Router();
-const userRouter = express.Router();
-const postingsRouter = express.Router();
 
 app.use("/users", userRouter);
 app.use("/postings", postingsRouter);
