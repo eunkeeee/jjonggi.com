@@ -27,10 +27,12 @@ export const getEdit = (req, res) => {
   return res.render("edit", { pageTitle: `${id}번 포스팅 수정중`, posting });
 };
 export const postEdit = (req, res) => {
-  const { id } = req.params;
-  const { contents } = req.body;
-  console.log(id, contents);
-  return res.end();
+  const {
+    params: { id },
+    body: { contents },
+  } = req;
+  postings[id - 1].contents = contents;
+  return res.redirect(`/postings/${id}`);
 };
 export const deletePosting = (req, res) => res.send("deletePosting");
 export const upload = (req, res) => res.send("upload");
