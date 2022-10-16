@@ -1,3 +1,6 @@
 extends base 
 block content 
-    h1 Edit Posting
+    h1 Edit Posting 
+    form(method="POST")
+        input(name="contents", placeholder="문구 입력...", value=posting.contents)
+        input(value="완료", type="submit")

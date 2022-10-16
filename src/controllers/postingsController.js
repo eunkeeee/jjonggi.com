@@ -1,7 +1,7 @@
 let postings = [
-  { id: 1, title: "은기의 브이로그", contents: "아무것도 없음" },
-  { id: 2, title: "지훈이의 브이로그", contents: "아직 아무것도 없음" },
-  { id: 3, title: "초키의 브이로그", contents: "아무것도 없음" },
+  { id: 1, contents: "아무것도 없음", createdAt: new Date() },
+  { id: 2, contents: "아직 아무것도 없음", createdAt: new Date() },
+  { id: 3, contents: "아무것도 없음", createdAt: new Date() },
 ];
 
 export const showMainPostings = (req, res) => {
@@ -19,6 +19,18 @@ export const showPosting = (req, res) => {
     posting,
   });
 };
-export const edit = (req, res) => res.render("edit");
+export const getEdit = (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  const posting = postings[id - 1];
+  return res.render("edit", { pageTitle: `${id}번 포스팅 수정중`, posting });
+};
+export const postEdit = (req, res) => {
+  const { id } = req.params;
+  const { contents } = req.body;
+  console.log(id, contents);
+  return res.end();
+};
 export const deletePosting = (req, res) => res.send("deletePosting");
 export const upload = (req, res) => res.send("upload");

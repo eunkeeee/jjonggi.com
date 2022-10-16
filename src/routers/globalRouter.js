@@ -7,6 +7,5 @@ const globalRouter = express.Router();
 globalRouter.get("/", showMainPostings); // postingsController
 globalRouter.get("/join", join); // userController
 globalRouter.get("/login", login); // userController
-globalRouter.get("/search", search); // postingsController
 
 export default globalRouter;
