@@ -3,5 +3,10 @@ html(lang="ko")
     head
         title #{pageTitle} | 쫑기닷컴
     body 
+        h1=pageTitle 
+        nav 
+            ul 
+                li 
+                    a(href="/postings/upload") Upload Video
         block content
     include partials/footer

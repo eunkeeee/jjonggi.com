@@ -4,11 +4,10 @@ let postings = [
   { id: 3, contents: "아무것도 없음", createdAt: new Date() },
 ];
 
+// Global Router의 Controller
 export const showMainPostings = (req, res) => {
   return res.render("home", { pageTitle: "메인", postings });
 };
-export const search = (req, res) => res.send("Search");
-
 export const showPosting = (req, res) => {
   const {
     params: { id },
@@ -19,6 +18,8 @@ export const showPosting = (req, res) => {
     posting,
   });
 };
+
+// Edit
 export const getEdit = (req, res) => {
   const {
     params: { id },
@@ -35,4 +36,9 @@ export const postEdit = (req, res) => {
   return res.redirect(`/postings/${id}`);
 };
 export const deletePosting = (req, res) => res.send("deletePosting");
-export const upload = (req, res) => res.send("upload");
+
+// Upload
+export const getUpload = (req, res) => {
+  return res.render("upload", { pageTitle: "새 게시물" });
+};
+export const postUpload = (req, res) => res.send("upload");
