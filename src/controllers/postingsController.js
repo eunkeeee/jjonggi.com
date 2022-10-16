@@ -5,7 +5,7 @@ export const showPosting = (req, res) => {
   const {
     params: { id },
   } = req;
-  console.log(id);
+  return res.render("posting");
 };
 export const edit = (req, res) => res.render("edit");
 export const deletePosting = (req, res) => res.send("deletePosting");
