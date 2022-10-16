@@ -6,8 +6,13 @@ const PORT = 4000;
 
 app.use(morgan("dev"));
 
-app.get("/", (req, res) => res.send("hi"));
-app.get("/login", (req, res) => res.send("Login"));
+const globalRouter = express.Router();
+const userRouter = express.Router();
+const postingsRouter = express.Router();
+
+app.use("/users", userRouter);
+app.use("/postings", postingsRouter);
+app.use("/", globalRouter);
 
 app.listen(PORT, () => {
   console.log(`✅ Server listenting on port http://localhost:${PORT} 🚀`);
