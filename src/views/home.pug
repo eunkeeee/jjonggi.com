@@ -1,9 +1,10 @@
 extends base 
+include mixins/posting 
+
 block content 
     h1 쫑기닷컴에 오신걸 환영합니다! 
     ul 
         each posting in postings 
-            li=posting.title 
-            span=posting.contents 
+            +posting(posting)
         else 
             li 포스팅 아직 없음.
