@@ -1,11 +1,11 @@
 import express from "express";
+import { showPostings } from "../controllers/postingsController";
+import { join, login } from "../controllers/userController";
 
 const globalRouter = express.Router();
 
-const handleHome = (req, res) => {
-  return res.send("Home");
-};
-
-globalRouter.get("/", handleHome);
+globalRouter.get("/", showPostings); // postingsController
+globalRouter.get("/join", join); // userController
+globalRouter.get("/login", login); // userController
 
 export default globalRouter;
