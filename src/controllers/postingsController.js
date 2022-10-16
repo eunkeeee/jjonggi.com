@@ -41,4 +41,15 @@ export const deletePosting = (req, res) => res.send("deletePosting");
 export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "새 게시물" });
 };
-export const postUpload = (req, res) => res.send("upload");
+export const postUpload = (req, res) => {
+  const {
+    body: { contents },
+  } = req;
+  const newPosting = {
+    id: 4,
+    contents,
+    createdAt: new Date(),
+  };
+  postings.push(newPosting);
+  return res.redirect("/");
+};
