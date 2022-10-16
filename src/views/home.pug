@@ -1,7 +1,9 @@
-doctype html
-html(lang="en")
-    head
-        title Jjonggi.com
-    body 
-        h1 Hello from Jjonggi.com 
-    include partials/footer
+extends base 
+block content 
+    h1 쫑기닷컴에 오신걸 환영합니다! 
+    ul 
+        each posting in postings 
+            li=posting.title 
+            span=posting.contents 
+        else 
+            li 포스팅 아직 없음.
