@@ -83,4 +83,13 @@ export const postUpload = async (req, res) => {
 };
 
 // search
-export const search = (req, res) => {};
+export const search = (req, res) => {
+  const {
+    query: { keyword }, // form의 get method로 URL에 올린걸 받아옴
+  } = req;
+
+  if (keyword) {
+    console.log(keyword);
+  }
+  return res.render("search", { pageTitle: "Search" });
+};
