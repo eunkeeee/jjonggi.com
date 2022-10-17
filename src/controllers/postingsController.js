@@ -10,14 +10,19 @@ export const home = async (req, res) => {
     return res.render("server-error", { error });
   }
 };
-export const showPosting = (req, res) => {
+export const showPosting = async (req, res) => {
   const {
     params: { id },
   } = req;
-  return res.render("showPosting", {
-    pageTitle: `${id}번 포스팅 보는중`,
-    postings: [],
-  });
+  const posting = await Posting.findById(id);
+  if (posting) {
+    return res.render("showPosting", {
+      pageTitle: posting.owner,
+      posting,
+    });
+  } else {
+    return res.render("404error", { pageTitle: "Posting not found." });
+  }
 };
 
 // Edit

@@ -11,9 +11,9 @@ import {
 
 const postingsRouter = express.Router();
 
-postingsRouter.get("/:id(\\d+)", showPosting);
-postingsRouter.route("/:id(\\d+)/edit").get(getEdit).post(postEdit);
+postingsRouter.get("/:id([0-9a-f]{24})", showPosting);
+postingsRouter.route("/:id([0-9a-f]{24})/edit").get(getEdit).post(postEdit);
 postingsRouter.route("/upload").get(getUpload).post(postUpload);
-postingsRouter.get("/:id(\\d+)/delete", deletePosting);
+postingsRouter.get("/:id([0-9a-f]{24})/delete", deletePosting);
 
 export default postingsRouter;

@@ -1,11 +1,12 @@
 mixin post(info)
-    div 
-        button ❤
-    div 
-        span #{info.meta.likes} likes
-    div 
-        span=info.owner
-        span  #{info.caption}
-    div 
-        span=info.createdAt
-    hr
+    a(href=`/postings/${info.id}`)
+        div 
+            button ❤
+        div 
+            span #{info.meta.likes} likes
+        div 
+            span=info.owner
+            span  #{info.caption}
+        div 
+            span=info.createdAt
+        hr
