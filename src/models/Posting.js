@@ -14,7 +14,7 @@ const postingSchema = new mongoose.Schema({
   owner: { type: String, required: true },
 });
 
-export const formatHashtags = (caption) => caption.match(/#[^\s#]*/g);
+postingSchema.static("formatHashtags", (caption) => caption.match(/#[^\s#]*/g));
 
 const Posting = mongoose.model("Posting", postingSchema);
 

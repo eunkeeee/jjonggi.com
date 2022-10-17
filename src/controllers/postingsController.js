@@ -1,4 +1,4 @@
-import Posting, { formatHashtags } from "../models/Posting";
+import Posting from "../models/Posting";
 
 // Global Router의 Controller
 export const home = async (req, res) => {
@@ -46,7 +46,7 @@ export const postEdit = async (req, res) => {
   }
   await Posting.findByIdAndUpdate(id, {
     caption,
-    hashtags: formatHashtags(caption),
+    hashtags: Posting.formatHashtags(caption),
     updatedAt: Date.now(),
   });
   return res.redirect(`/postings/${id}`);
@@ -64,7 +64,7 @@ export const postUpload = async (req, res) => {
   try {
     await Posting.create({
       caption,
-      hashtags: formatHashtags(caption),
+      hashtags: Posting.formatHashtags(caption),
       owner: "Eunkeee",
     });
     return res.redirect("/");
