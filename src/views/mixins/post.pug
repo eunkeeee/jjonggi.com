@@ -12,4 +12,9 @@ mixin post(info)
                 span=info.createdAt
             else 
                 span updated at #{info.updatedAt}
+        div 
+            span (dev mode hashtags)
+            if info.hashtags 
+                each hashtag in info.hashtags 
+                    span=hashtag
         hr

@@ -1,7 +1,6 @@
 import express from "express";
 import {
   deletePosting,
-  edit,
   getEdit,
   getUpload,
   postEdit,

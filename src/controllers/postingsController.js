@@ -3,7 +3,7 @@ import Posting from "../models/Posting";
 // Global Router의 Controller
 export const home = async (req, res) => {
   try {
-    const postings = await Posting.find({});
+    const postings = await Posting.find({}).sort({ createdAt: "desc" });
     return res.render("home", { pageTitle: "Home", postings });
   } catch (error) {
     console.log(error);
@@ -51,7 +51,13 @@ export const postEdit = async (req, res) => {
   });
   return res.redirect(`/postings/${id}`);
 };
-export const deletePosting = (req, res) => res.send("deletePosting");
+export const deletePosting = async (req, res) => {
+  const {
+    params: { id },
+  } = req;
+  await Posting.findByIdAndDelete(id);
+  return res.redirect("/");
+};
 
 // Upload
 export const getUpload = (req, res) => {
@@ -75,3 +81,6 @@ export const postUpload = async (req, res) => {
     });
   }
 };
+
+// search
+export const search = (req, res) => {};

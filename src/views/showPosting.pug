@@ -4,3 +4,5 @@ include mixins/post
 block content 
     +post(posting)
     a(href=`${posting.id}/edit`) Edit Posting &rarr;
+    br
+    a(href=`${posting.id}/delete`) Delete Posting &rarr;
