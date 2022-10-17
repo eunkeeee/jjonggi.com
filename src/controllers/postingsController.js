@@ -39,7 +39,7 @@ export const deletePosting = (req, res) => res.send("deletePosting");
 
 // Upload
 export const getUpload = (req, res) => {
-  return res.render("upload", { pageTitle: "새 게시물" });
+  return res.render("upload", { pageTitle: "New Post" });
 };
 export const postUpload = async (req, res) => {
   const {
@@ -47,11 +47,17 @@ export const postUpload = async (req, res) => {
   } = req;
   const searchHashtags = req.body.caption.match(/#[^\s#]*/g);
   const hashtags = searchHashtags ? searchHashtags : null;
-  console.log(hashtags);
-  await Posting.create({
-    caption,
-    hashtags,
-    owner: "Eunkeee",
-  });
-  return res.redirect("/");
+  try {
+    await Posting.create({
+      caption,
+      hashtags,
+      owner: "Eunkeee",
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("upload", {
+      pageTitle: "New Post",
+      errorMessage: error._message,
+    });
+  }
 };

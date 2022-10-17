@@ -1,6 +1,7 @@
 extends base 
 block content 
-    h1 Upload Posting
+    if errorMessage 
+        div=errorMessage
     form(method="POST")
         input(name="caption", placeholder="문구 입력...", type="text")
         input(value="공유", type="submit")
