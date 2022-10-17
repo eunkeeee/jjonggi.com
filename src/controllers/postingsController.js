@@ -4,7 +4,6 @@ import Posting from "../models/Posting";
 export const home = async (req, res) => {
   try {
     const postings = await Posting.find({});
-    console.log("!!! POSTINGS:", postings);
     return res.render("home", { pageTitle: "Home", postings });
   } catch (error) {
     console.log(error);
@@ -46,12 +45,13 @@ export const postUpload = async (req, res) => {
   const {
     body: { caption },
   } = req;
-  console.log(caption);
-  const newPosting = new Posting({
+  const searchHashtags = req.body.caption.match(/#[^\s#]*/g);
+  const hashtags = searchHashtags ? searchHashtags : null;
+  console.log(hashtags);
+  await Posting.create({
     caption,
+    hashtags,
     owner: "Eunkeee",
   });
-  const dbPosting = await newPosting.save();
-  console.log(dbPosting);
   return res.redirect("/");
 };
