@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const PostingSchema = new mongoose.Schema({
+const postingSchema = new mongoose.Schema({
   caption: String,
   tagPeople: [{ type: String }],
   addLocation: String,
@@ -14,6 +14,8 @@ const PostingSchema = new mongoose.Schema({
   owner: { type: String, required: true },
 });
 
-const Posting = mongoose.model("Posting", PostingSchema);
+export const formatHashtags = (caption) => caption.match(/#[^\s#]*/g);
+
+const Posting = mongoose.model("Posting", postingSchema);
 
 export default Posting;
