@@ -10,7 +10,7 @@ const PostingSchema = new mongoose.Schema({
     likes: { type: Number, default: 0, required: true },
     savedtoCollections: { type: Number, default: 0, required: true },
   },
-  owner: String,
+  owner: { type: String, required: true },
 });
 
 const Posting = mongoose.model("Posting", PostingSchema);

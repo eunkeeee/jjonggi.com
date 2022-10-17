@@ -1,4 +1,10 @@
 mixin post(info)
     div 
-        li=info.contents 
+        button ❤
+    div 
+        span #{info.meta.likes} likes
+    div 
+        span=info.owner
+        span  #{info.caption}
+    div 
         span=info.createdAt
