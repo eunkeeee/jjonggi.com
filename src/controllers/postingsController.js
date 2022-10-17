@@ -15,29 +15,38 @@ export const showPosting = async (req, res) => {
     params: { id },
   } = req;
   const posting = await Posting.findById(id);
-  if (posting) {
-    return res.render("showPosting", {
-      pageTitle: posting.owner,
-      posting,
-    });
-  } else {
+  if (!posting) {
     return res.render("404error", { pageTitle: "Posting not found." });
   }
+  return res.render("showPosting", {
+    pageTitle: posting.owner,
+    posting,
+  });
 };
 
 // Edit
-export const getEdit = (req, res) => {
+export const getEdit = async (req, res) => {
   const {
     params: { id },
   } = req;
-  const posting = postings[id - 1];
-  return res.render("edit", { pageTitle: `${id}번 포스팅 수정중` });
+  const posting = await Posting.findById(id);
+  if (!posting) {
+    return res.render("404error", { pageTitle: "Posting not found." });
+  }
+  return res.render("edit", { pageTitle: `Editing...`, posting });
 };
-export const postEdit = (req, res) => {
+export const postEdit = async (req, res) => {
   const {
     params: { id },
-    body: { contents },
+    body: { caption },
   } = req;
+  const posting = await Posting.findById(id);
+  if (!posting) {
+    return res.render("404error", { pageTitle: "Posting not found." });
+  }
+  posting.caption = caption;
+  posting.updatedAt = Date.now();
+  await posting.save();
   return res.redirect(`/postings/${id}`);
 };
 export const deletePosting = (req, res) => res.send("deletePosting");

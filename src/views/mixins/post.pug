@@ -8,5 +8,8 @@ mixin post(info)
             span=info.owner
             span  #{info.caption}
         div 
-            span=info.createdAt
+            if !info.updatedAt
+                span=info.createdAt
+            else 
+                span updated at #{info.updatedAt}
         hr

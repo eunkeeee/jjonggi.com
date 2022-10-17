@@ -6,6 +6,7 @@ const PostingSchema = new mongoose.Schema({
   addLocation: String,
   hashtags: [{ type: String }],
   createdAt: { type: Date, required: true, default: Date.now },
+  updatedAt: { type: Date, default: null },
   meta: {
     likes: { type: Number, default: 0, required: true },
     savedtoCollections: { type: Number, default: 0, required: true },
