@@ -2,9 +2,8 @@ extends base
 include mixins/post
 
 block content 
-    h1 쫑기닷컴에 오신걸 환영합니다! 
-    ul 
+    div
         each post in postings 
             +post(post)
         else 
-            li 포스팅 아직 없음.
+            span 포스팅 아직 없음.
