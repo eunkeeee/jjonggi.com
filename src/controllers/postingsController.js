@@ -44,9 +44,11 @@ export const postEdit = async (req, res) => {
   if (!posting) {
     return res.render("404error", { pageTitle: "Posting not found." });
   }
-  posting.caption = caption;
-  posting.updatedAt = Date.now();
-  await posting.save();
+  await Posting.findByIdAndUpdate(id, {
+    caption,
+    hashtags: caption.match(/#[^\s#]*/g),
+    updatedAt: Date.now(),
+  });
   return res.redirect(`/postings/${id}`);
 };
 export const deletePosting = (req, res) => res.send("deletePosting");
@@ -59,12 +61,10 @@ export const postUpload = async (req, res) => {
   const {
     body: { caption },
   } = req;
-  const searchHashtags = req.body.caption.match(/#[^\s#]*/g);
-  const hashtags = searchHashtags ? searchHashtags : null;
   try {
     await Posting.create({
       caption,
-      hashtags,
+      hashtags: caption.match(/#[^\s#]*/g),
       owner: "Eunkeee",
     });
     return res.redirect("/");
