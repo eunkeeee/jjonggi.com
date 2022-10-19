@@ -84,15 +84,35 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id },
+      user: { _id, email: sessionEmail, username: sessionUsername },
     },
     body: { name, email, username },
   } = req;
   // 1. email, username은 unique해야함
+  let takeParams = [];
+  if (sessionEmail !== email) {
+    takeParams.push({ email });
+  }
+  if (sessionUsername !== username) {
+    takeParams.push({ username });
+  }
+  if (takeParams.length > 0) {
+    const foundUser = await User.findOne({ $or: takeParams });
+    if (foundUser && foundUser._id.toString() !== _id) {
+      return res.status(400).render("edit-profile", {
+        pageTitle: "Edit Profile",
+        errorMessage: "This username/email is already taken.",
+      });
+    }
+  }
   // 2. DB에서 찾아 변경해주기
-  await User.findByIdAndUpdate(_id, { name, email, username });
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    { name, email, username },
+    { new: true }
+  );
   // session에도 update
-  req.session.user = { ...req.session.user, name, email, username };
+  req.session.user = updatedUser;
   return res.redirect("/users/edit");
 };
 export const deleteAccount = (req, res) => res.send("Delete User");
