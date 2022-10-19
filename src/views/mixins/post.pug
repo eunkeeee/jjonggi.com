@@ -1,6 +1,9 @@
 mixin post(info)
     a(href=`/postings/${info.id}`)
         div 
+            each imgUrl in info.imgsUrl
+                img(src="/"+imgUrl, height="100px")
+        div 
             button ❤
         div 
             span #{info.meta.likes} likes
