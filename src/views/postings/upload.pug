@@ -2,6 +2,8 @@ extends ../base
 block content 
     if errorMessage 
         div=errorMessage
-    form(method="POST")
+    form(method="POST", enctype="multipart/form-data")
+        label(for="photos") Images
+        input(type="file", id="photos", name="photos", accept=".png, .jpg, .jpeg", multiple)
         input(name="caption", placeholder="문구 입력...", type="text")
         input(value="공유", type="submit")

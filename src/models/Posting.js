@@ -2,6 +2,7 @@ import mongoose from "mongoose";
 
 const postingSchema = new mongoose.Schema({
   caption: String,
+  imgsUrl: [{ type: String, required: true }],
   tagPeople: [{ type: String }],
   addLocation: String,
   hashtags: [{ type: String }],

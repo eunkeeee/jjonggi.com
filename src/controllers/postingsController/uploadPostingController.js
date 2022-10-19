@@ -7,18 +7,21 @@ export const getUpload = (req, res) => {
 export const postUpload = async (req, res) => {
   const {
     body: { caption },
+    files,
   } = req;
-  try {
-    await Posting.create({
-      caption,
-      hashtags: Posting.formatHashtags(caption),
-      owner: "Eunkeee",
-    });
-    return res.redirect("/");
-  } catch (error) {
-    return res.status(400).render("postings/upload", {
-      pageTitle: "New Post",
-      errorMessage: error._message,
-    });
-  }
+  console.log("!!! FILES:", files);
+  // try {
+  //   await Posting.create({
+  //     caption,
+  //     images,
+  //     hashtags: Posting.formatHashtags(caption),
+  //     owner: "Eunkeee",
+  //   });
+  //   return res.redirect("/");
+  // } catch (error) {
+  //   return res.status(400).render("postings/upload", {
+  //     pageTitle: "New Post",
+  //     errorMessage: error._message,
+  //   });
+  // }
 };
