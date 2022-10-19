@@ -79,15 +79,21 @@ export const logout = (req, res) => {
 };
 
 export const getEdit = (req, res) => {
-  return res.render("edit-profile");
+  return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
-export const postEdit = (req, res) => {
+export const postEdit = async (req, res) => {
   const {
-    query: { name, email, username },
+    session: {
+      user: { _id },
+    },
+    body: { name, email, username },
   } = req;
   // 1. email, username은 unique해야함
-
   // 2. DB에서 찾아 변경해주기
+  await User.findByIdAndUpdate(_id, { name, email, username });
+  // session에도 update
+  req.session.user = { ...req.session.user, name, email, username };
+  return res.redirect("/users/edit");
 };
 export const deleteAccount = (req, res) => res.send("Delete User");
 export const see = (req, res) => res.send("see User");

@@ -7,12 +7,25 @@ import {
   postUpload,
   showPosting,
 } from "../controllers/postingsController";
+import { loginOnlyMiddleWare } from "../middleware";
 
 const postingsRouter = express.Router();
 
 postingsRouter.get("/:id([0-9a-f]{24})", showPosting);
-postingsRouter.route("/:id([0-9a-f]{24})/edit").get(getEdit).post(postEdit);
-postingsRouter.route("/upload").get(getUpload).post(postUpload);
-postingsRouter.get("/:id([0-9a-f]{24})/delete", deletePosting);
+postingsRouter
+  .route("/:id([0-9a-f]{24})/edit")
+  .all(loginOnlyMiddleWare)
+  .get(getEdit)
+  .post(postEdit);
+postingsRouter
+  .route("/upload")
+  .all(loginOnlyMiddleWare)
+  .get(getUpload)
+  .post(postUpload);
+postingsRouter.get(
+  "/:id([0-9a-f]{24})/delete",
+  loginOnlyMiddleWare,
+  deletePosting
+);
 
 export default postingsRouter;
