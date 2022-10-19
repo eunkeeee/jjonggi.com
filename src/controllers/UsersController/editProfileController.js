@@ -7,12 +7,11 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     session: {
-      user: { _id, avatarUrl, email: sessionEmail, username: sessionUsername },
+      user: { _id, email: sessionEmail, username: sessionUsername },
     },
     body: { name, email, username },
     file,
   } = req;
-  console.log("!!! FILE:", file);
   // 1. email, username은 unique해야함
   let takeParams = [];
   if (sessionEmail !== email) {
@@ -33,7 +32,7 @@ export const postEdit = async (req, res) => {
   // 2. DB에서 찾아 변경해주기
   const updatedUser = await User.findByIdAndUpdate(
     _id,
-    { name, email, username },
+    { name, email, username, avatarUrl: file ? file.path : avatarUrl },
     { new: true } // You should set the new option to true to return the document after update was applied.
   );
   // session에도 update

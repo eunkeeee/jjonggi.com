@@ -22,4 +22,5 @@ export const logOutOnlyMiddleWare = (req, res, next) => {
   return res.redirect("/");
 };
 
-export const avatarUpload = multer({ dest: "uploads/" });
+export const avatarUpload = multer({ dest: "uploads/avatars/" });
+export const postingUpload = multer({ dest: "uploads/postings/" });
