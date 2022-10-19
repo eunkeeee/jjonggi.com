@@ -1,6 +1,9 @@
+import { checkPasswordStrength } from "../checkPasswordStrength";
+
 export const getJoin = (req, res) => {
   return res.render("join", { pageTitle: "Join" });
 };
+
 export const postJoin = (req, res) => {
   const {
     body: { name, email, username, password, password2 },
@@ -13,6 +16,13 @@ export const postJoin = (req, res) => {
     });
   }
   // 2. pw strength checker
+  if (!checkPasswordStrength(password)) {
+    return res.render("join", {
+      pageTitle: "Join",
+      errorMessage:
+        "Your password must contain at least 8 characters with and numeric character.",
+    });
+  }
   // 3. email, username 중복여부 체크
 };
 
