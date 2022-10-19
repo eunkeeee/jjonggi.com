@@ -21,11 +21,11 @@ app.use(express.urlencoded({ extended: true }));
 // SESSION Middleware
 app.use(
   session({
-    secret: "keyboard cat",
-    resave: true,
-    saveUninitialized: true,
+    secret: process.env.COOKIE_SERCRET,
+    resave: false,
+    saveUninitialized: false,
     store: MongoStore.create({
-      mongoUrl: "mongodb://127.0.0.1:27017/jjonggicom",
+      mongoUrl: process.env.DB_URL,
     }),
   })
 );
