@@ -1,13 +1,14 @@
 import express from "express";
+import { deleteAccount, see } from "../controllers/userController";
 import {
-  deleteAccount,
-  getEdit,
-  postEdit,
-  logout,
-  see,
   getChangePassword,
   postChangePassword,
-} from "../controllers/userController";
+} from "../controllers/UsersController/changePasswordController";
+import {
+  getEdit,
+  postEdit,
+} from "../controllers/UsersController/editProfileController";
+import { logout } from "../controllers/UsersController/loginController";
 import { loginOnlyMiddleWare } from "../middleware";
 
 const userRouter = express.Router();

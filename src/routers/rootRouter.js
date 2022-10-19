@@ -3,9 +3,11 @@ import { search, home } from "../controllers/postingsController";
 import {
   getJoin,
   postJoin,
+} from "../controllers/UsersController/joinController";
+import {
   getLogin,
   postLogin,
-} from "../controllers/userController";
+} from "../controllers/UsersController/loginController";
 import { logOutOnlyMiddleWare } from "../middleware";
 
 const rootRouter = express.Router();

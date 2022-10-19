@@ -1,12 +1,14 @@
 import express from "express";
+import { showPosting } from "../controllers/postingsController";
 import {
   deletePosting,
   getEdit,
-  getUpload,
   postEdit,
+} from "../controllers/postingsController/editPostingController";
+import {
+  getUpload,
   postUpload,
-  showPosting,
-} from "../controllers/postingsController";
+} from "../controllers/postingsController/uploadPostingController";
 import { loginOnlyMiddleWare } from "../middleware";
 
 const postingsRouter = express.Router();

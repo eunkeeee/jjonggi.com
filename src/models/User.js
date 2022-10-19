@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
-import { passwordStrength } from "check-password-strength";
 
 const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
