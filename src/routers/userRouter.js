@@ -9,11 +9,15 @@ import {
   postEdit,
 } from "../controllers/UsersController/editProfileController";
 import { logout } from "../controllers/UsersController/loginController";
-import { loginOnlyMiddleWare } from "../middleware";
+import { loginOnlyMiddleWare, avatarUpload } from "../middleware";
 
 const userRouter = express.Router();
 
-userRouter.route("/edit").all(loginOnlyMiddleWare).get(getEdit).post(postEdit);
+userRouter
+  .route("/edit")
+  .all(loginOnlyMiddleWare)
+  .get(getEdit)
+  .post(avatarUpload.single("avatar"), postEdit);
 userRouter
   .route("/change-password")
   .all(loginOnlyMiddleWare)

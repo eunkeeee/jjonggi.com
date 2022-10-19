@@ -1,3 +1,5 @@
+import multer from "multer";
+
 export const localsMiddleWare = (req, res, next) => {
   res.locals.loggedIn = Boolean(req.session.loggedIn);
   res.locals.siteName = "쫑기닷컴";
@@ -19,3 +21,5 @@ export const logOutOnlyMiddleWare = (req, res, next) => {
   }
   return res.redirect("/");
 };
+
+export const avatarUpload = multer({ dest: "uploads/" });

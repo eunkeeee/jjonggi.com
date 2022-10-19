@@ -2,6 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
+
 import rootRouter from "./routers/rootRouter";
 import postingsRouter from "./routers/postingsRouter";
 import userRouter from "./routers/userRouter";
@@ -38,6 +39,7 @@ app.use((req, res, next) => {
 
 // LOCALS middleware
 app.use(localsMiddleWare);
+app.use("/uploads", express.static("uploads")); // 그냥 정적 폴더의 내용 보여줘라!
 
 app.use("/users", userRouter);
 app.use("/postings", postingsRouter);
