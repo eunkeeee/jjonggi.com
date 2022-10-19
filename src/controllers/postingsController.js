@@ -83,13 +83,13 @@ export const postUpload = async (req, res) => {
 };
 
 // search
-export const search = (req, res) => {
+export const search = async (req, res) => {
+  // hashtag 서칭
   const {
     query: { keyword }, // form의 get method로 URL에 올린걸 받아옴
   } = req;
-
-  if (keyword) {
-    console.log(keyword);
+  if (!keyword) {
+    return res.redirect("/");
   }
   return res.render("search", { pageTitle: "Search" });
 };
