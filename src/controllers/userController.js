@@ -1,6 +1,6 @@
-import { passwordStrength } from "check-password-strength";
 import bcrypt from "bcrypt";
 import User from "../models/User";
+import { passwordStrength } from "check-password-strength";
 
 // 회원가입
 export const getJoin = (req, res) => {
@@ -131,27 +131,46 @@ export const getChangePassword = (req, res) => {
 };
 export const postChangePassword = async (req, res) => {
   const {
-    body: { currentPassword, password, password2 },
+    session: {
+      user: { _id },
+    },
+    body: { currentPassword, newPassword, newPassword2 },
   } = req;
-
-  if (password !== password2) {
-    return res.status(400).render("change-password", {
+  const currentUser = await User.findOne({ _id });
+  const { name, username, email, password: hashedPassword } = currentUser;
+  if (newPassword !== newPassword2) {
+    return res.status(400).render("users/change-password", {
       pageTitle: "Change Password",
       errorMessage: "Password confirmation does not match!",
     });
   }
-
+  console.log("PW 두개는 서로 같음");
   // 기존 pw이 맞는지 확인
   const correctCurrentPassword = await bcrypt.compare(
     currentPassword,
-    req.session.user.password
+    hashedPassword
   );
+  console.log("이전 PW도 맞췄음");
+  console.log("내가 적은거:", currentPassword);
+  console.log("DB에 저장된거:", hashedPassword);
   if (!correctCurrentPassword) {
-    return res.status(500).render("change-password", {
+    return res.status(500).render("users/change-password", {
       pageTitle: "Change Password",
-      errorMessage: "Please write a correct current password!",
+      errorMessage: "Please write correct current password!",
     });
   }
+  // 새로운 pw를 저장하기
+  const updatedUser = await User.findByIdAndUpdate(_id, {
+    name,
+    username,
+    email,
+    password: newPassword,
+  });
+  console.log("디비에 업데이트완료");
+  req.session.user = updatedUser;
+  console.log("세션도 업데이트 완료");
+  return res.redirect("/");
 };
+
 export const deleteAccount = (req, res) => res.send("Delete User");
 export const see = (req, res) => res.send("see User");
