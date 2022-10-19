@@ -75,6 +75,7 @@ export const postLogin = async (req, res) => {
 export const logout = (req, res) => {
   req.session.user = null;
   req.session.loggedIn = false;
+  return res.redirect("/");
 };
 
 export const edit = (req, res) => res.send("Edit User");
