@@ -3,6 +3,9 @@ include ../mixins/post
 
 block content 
     +post(posting)
-    a(href=`${posting.id}/edit`) Edit Posting &rarr;
-    br
-    a(href=`${posting.id}/delete`) Delete Posting &rarr;
+    div
+        span Uploaded by #{owner.name}
+    if String(posting.owner) === String(loggedInUser._id)
+        a(href=`${posting.id}/edit`) Edit Posting &rarr;
+        br
+        a(href=`${posting.id}/delete`) Delete Posting &rarr;

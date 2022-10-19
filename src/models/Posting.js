@@ -12,7 +12,7 @@ const postingSchema = new mongoose.Schema({
     likes: { type: Number, default: 0, required: true },
     savedtoCollections: { type: Number, default: 0, required: true },
   },
-  owner: { type: String, required: true },
+  owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
 });
 
 postingSchema.static("formatHashtags", (caption) => caption.match(/#[^\s#]*/g));

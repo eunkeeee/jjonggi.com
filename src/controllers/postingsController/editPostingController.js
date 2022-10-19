@@ -24,6 +24,7 @@ export const postEdit = async (req, res) => {
   }
   await Posting.findByIdAndUpdate(id, {
     caption,
+    imgsUrl: posting.imgsUrl,
     hashtags: Posting.formatHashtags(caption),
     updatedAt: Date.now(),
   });

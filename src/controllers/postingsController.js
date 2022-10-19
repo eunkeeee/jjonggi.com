@@ -1,4 +1,5 @@
 import Posting from "../models/Posting";
+import User from "../models/User";
 
 // Global Router의 Controller
 export const home = async (req, res) => {
@@ -15,12 +16,14 @@ export const showPosting = async (req, res) => {
     params: { id },
   } = req;
   const posting = await Posting.findById(id);
+  const owner = await User.findById(posting.owner);
   if (!posting) {
     return res.render("404error", { pageTitle: "Posting not found." });
   }
   return res.render("postings/showPosting", {
-    pageTitle: posting.owner,
+    pageTitle: `${owner.name}님의 게시글`,
     posting,
+    owner,
   });
 };
 

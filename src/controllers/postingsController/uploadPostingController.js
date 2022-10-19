@@ -8,6 +8,9 @@ export const postUpload = async (req, res) => {
   const {
     body: { caption },
     files,
+    session: {
+      user: { _id },
+    },
   } = req;
   let imgsUrl = [];
   files.forEach((element) => {
@@ -18,7 +21,7 @@ export const postUpload = async (req, res) => {
       caption,
       imgsUrl,
       hashtags: Posting.formatHashtags(caption),
-      owner: "Eunkeee",
+      owner: _id,
     });
     return res.redirect("/");
   } catch (error) {
@@ -27,5 +30,4 @@ export const postUpload = async (req, res) => {
       errorMessage: error._message,
     });
   }
-  res.end();
 };
