@@ -42,7 +42,9 @@ export const postEdit = async (req, res) => {
   } = req;
   const posting = await Posting.findById(id);
   if (!posting) {
-    return res.render("404error", { pageTitle: "Posting not found." });
+    return res
+      .status(404)
+      .render("404error", { pageTitle: "Posting not found." });
   }
   await Posting.findByIdAndUpdate(id, {
     caption,
@@ -75,7 +77,7 @@ export const postUpload = async (req, res) => {
     });
     return res.redirect("/");
   } catch (error) {
-    return res.render("upload", {
+    return res.status(400).render("upload", {
       pageTitle: "New Post",
       errorMessage: error._message,
     });
