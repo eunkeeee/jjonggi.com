@@ -4,6 +4,7 @@ import session from "express-session";
 import rootRouter from "./routers/rootRouter";
 import postingsRouter from "./routers/postingsRouter";
 import userRouter from "./routers/userRouter";
+import { localsMiddleWare } from "./models/middleware";
 
 const app = express();
 
@@ -15,6 +16,8 @@ app.use(morgan("dev"));
 // req.body가 undefined인 문제 해결용
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// SESSION Middleware
 app.use(
   session({
     secret: "keyboard cat",
@@ -28,6 +31,9 @@ app.use((req, res, next) => {
   });
   next();
 });
+
+// LOCALS middleware
+app.use(localsMiddleWare);
 
 app.use("/users", userRouter);
 app.use("/postings", postingsRouter);

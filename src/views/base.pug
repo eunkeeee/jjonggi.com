@@ -1,20 +1,27 @@
 doctype html
 html(lang="ko")
     head
-        title #{pageTitle} | 쫑기닷컴
+        title #{pageTitle} | #{siteName}
     body 
         h1=pageTitle 
         nav 
             ul 
+                if loggedIn
+                    li 
+                        a(href="/logout") Log Out
+                    li 
+                        a(href="/my-profile") #{loggedInUser.name}의 프로필
+                else 
+                    li 
+                        a(href="/join") Join 
+                    li 
+                        a(href="/login") Login
                 li 
                     a(href="/") Home
                 li
                     a(href="/postings/upload") Upload Posting 
                 li 
                     a(href="/search") Search
-                li 
-                    a(href="/join") Join 
-                li 
-                    a(href="/login") Login
+                
         block content
     include partials/footer
