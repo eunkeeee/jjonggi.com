@@ -2,10 +2,10 @@ import { passwordStrength } from "check-password-strength";
 
 import User from "../models/User";
 
+// 회원가입
 export const getJoin = (req, res) => {
   return res.render("join", { pageTitle: "Join" });
 };
-
 export const postJoin = async (req, res) => {
   const {
     body: { name, email, username, password, password2 },
@@ -52,7 +52,23 @@ export const postJoin = async (req, res) => {
   }
 };
 
-export const login = (req, res) => res.send("Login");
+// 로그인
+export const getLogin = (req, res) => {
+  return res.render("login", { pageTitle: "Login" });
+};
+export const postLogin = async (req, res) => {
+  const {
+    body: { username, password },
+  } = req;
+  const user = await User.findOne({ username });
+  if (!user) {
+    return res.status(400).render("login", {
+      pageTitle: "Login",
+      errorMessage: "An account with this username does not exist!",
+    });
+  }
+  res.end();
+};
 
 export const edit = (req, res) => res.send("Edit User");
 export const deleteAccount = (req, res) => res.send("Delete User");
