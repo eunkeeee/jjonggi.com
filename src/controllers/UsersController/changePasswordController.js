@@ -36,12 +36,16 @@ export const postChangePassword = async (req, res) => {
     });
   }
   // 새로운 pw를 저장하기
-  const updatedUser = await User.findByIdAndUpdate(_id, {
-    name,
-    username,
-    email,
-    password: newPassword,
-  });
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name,
+      username,
+      email,
+      password: newPassword,
+    },
+    { new: true } // You should set the new option to true to return the document after update was applied.
+  );
   console.log("디비에 업데이트완료");
   req.session.user = updatedUser;
   console.log("세션도 업데이트 완료");

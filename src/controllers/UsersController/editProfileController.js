@@ -32,7 +32,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     { name, email, username },
-    { new: true }
+    { new: true } // You should set the new option to true to return the document after update was applied.
   );
   // session에도 update
   req.session.user = updatedUser;
