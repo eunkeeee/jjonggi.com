@@ -3,10 +3,19 @@ export const getJoin = (req, res) => {
 };
 export const postJoin = (req, res) => {
   const {
-    body: { name, email, username, password },
+    body: { name, email, username, password, password2 },
   } = req;
-  return res.send(`${name},${email},${username},${password}`);
+  // 1. pw vs pw2
+  if (password !== password2) {
+    return res.render("join", {
+      pageTitle: "Join",
+      errorMessage: "Password confirmation does not match!",
+    });
+  }
+  // 2. pw strength checker
+  // 3. email, username 중복여부 체크
 };
+
 export const login = (req, res) => res.send("Login");
 
 export const edit = (req, res) => res.send("Edit User");
