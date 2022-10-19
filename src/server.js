@@ -20,9 +20,14 @@ app.use(
     secret: "keyboard cat",
     resave: true,
     saveUninitialized: true,
-    cookie: { secure: true },
   })
 );
+app.use((req, res, next) => {
+  req.sessionStore.all((error, sessions) => {
+    console.log("!!!SESSIONS:", sessions);
+  });
+  next();
+});
 
 app.use("/users", userRouter);
 app.use("/postings", postingsRouter);

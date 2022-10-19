@@ -67,7 +67,9 @@ export const postLogin = async (req, res) => {
       errorMessage: "An account with this username does not exist!",
     });
   }
-  res.end();
+  req.session.loggedIn = true;
+  req.session.user = user;
+  return res.redirect("/");
 };
 
 export const edit = (req, res) => res.send("Edit User");
