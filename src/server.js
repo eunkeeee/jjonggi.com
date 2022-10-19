@@ -1,5 +1,6 @@
 import express from "express";
 import morgan from "morgan";
+import session from "express-session";
 import rootRouter from "./routers/rootRouter";
 import postingsRouter from "./routers/postingsRouter";
 import userRouter from "./routers/userRouter";
@@ -14,6 +15,14 @@ app.use(morgan("dev"));
 // req.body가 undefined인 문제 해결용
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(
+  session({
+    secret: "keyboard cat",
+    resave: true,
+    saveUninitialized: true,
+    cookie: { secure: true },
+  })
+);
 
 app.use("/users", userRouter);
 app.use("/postings", postingsRouter);
