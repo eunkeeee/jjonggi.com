@@ -2,7 +2,7 @@ import Posting from "../../models/Posting";
 
 // Upload
 export const getUpload = (req, res) => {
-  return res.render("upload", { pageTitle: "New Post" });
+  return res.render("postings/upload", { pageTitle: "New Post" });
 };
 export const postUpload = async (req, res) => {
   const {
@@ -16,7 +16,7 @@ export const postUpload = async (req, res) => {
     });
     return res.redirect("/");
   } catch (error) {
-    return res.status(400).render("upload", {
+    return res.status(400).render("postings/upload", {
       pageTitle: "New Post",
       errorMessage: error._message,
     });

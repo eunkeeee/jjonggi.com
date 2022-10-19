@@ -3,7 +3,7 @@ import User from "../../models/User";
 
 // 로그인
 export const getLogin = (req, res) => {
-  return res.render("login", { pageTitle: "Login" });
+  return res.render("users/login", { pageTitle: "Login" });
 };
 export const postLogin = async (req, res) => {
   const {
@@ -11,7 +11,7 @@ export const postLogin = async (req, res) => {
   } = req;
   const user = await User.findOne({ username });
   if (!user) {
-    return res.status(400).render("login", {
+    return res.status(400).render("users/login", {
       pageTitle: "Login",
       errorMessage: "An account with this username does not exist!",
     });
@@ -21,7 +21,10 @@ export const postLogin = async (req, res) => {
   if (!correctPassword) {
     return res
       .status(500)
-      .render("login", { pageTitle: "Login", errorMessage: "Wrong Password!" });
+      .render("users/login", {
+        pageTitle: "Login",
+        errorMessage: "Wrong Password!",
+      });
   }
   req.session.loggedIn = true;
   req.session.user = user;

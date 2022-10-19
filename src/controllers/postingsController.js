@@ -18,7 +18,7 @@ export const showPosting = async (req, res) => {
   if (!posting) {
     return res.render("404error", { pageTitle: "Posting not found." });
   }
-  return res.render("showPosting", {
+  return res.render("postings/showPosting", {
     pageTitle: posting.owner,
     posting,
   });
@@ -30,8 +30,8 @@ export const search = async (req, res) => {
   const {
     query: { keyword }, // form의 get method로 URL에 올린걸 받아옴
   } = req;
-  if (!keyword) {
-    return res.redirect("/");
-  }
-  return res.render("search", { pageTitle: "Search" });
+  // if (!keyword) {
+  //   return res.redirect("/");
+  // }
+  return res.render("postings/search", { pageTitle: "Search" });
 };

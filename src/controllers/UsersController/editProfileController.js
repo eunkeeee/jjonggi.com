@@ -2,7 +2,7 @@ import User from "../../models/User";
 
 // 회원 정보 수정
 export const getEdit = (req, res) => {
-  return res.render("edit-profile", { pageTitle: "Edit Profile" });
+  return res.render("users/edit-profile", { pageTitle: "Edit Profile" });
 };
 export const postEdit = async (req, res) => {
   const {
@@ -22,7 +22,7 @@ export const postEdit = async (req, res) => {
   if (takeParams.length > 0) {
     const foundUser = await User.findOne({ $or: takeParams });
     if (foundUser && foundUser._id.toString() !== _id) {
-      return res.status(400).render("edit-profile", {
+      return res.status(400).render("users/edit-profile", {
         pageTitle: "Edit Profile",
         errorMessage: "This username/email is already taken.",
       });

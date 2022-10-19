@@ -9,7 +9,7 @@ export const getEdit = async (req, res) => {
   if (!posting) {
     return res.render("404error", { pageTitle: "Posting not found." });
   }
-  return res.render("edit", { pageTitle: `Editing...`, posting });
+  return res.render("postings/edit", { pageTitle: `Editing...`, posting });
 };
 export const postEdit = async (req, res) => {
   const {
