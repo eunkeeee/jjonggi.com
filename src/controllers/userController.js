@@ -78,6 +78,16 @@ export const logout = (req, res) => {
   return res.redirect("/");
 };
 
-export const edit = (req, res) => res.send("Edit User");
+export const getEdit = (req, res) => {
+  return res.render("edit-profile");
+};
+export const postEdit = (req, res) => {
+  const {
+    query: { name, email, username },
+  } = req;
+  // 1. email, username은 unique해야함
+
+  // 2. DB에서 찾아 변경해주기
+};
 export const deleteAccount = (req, res) => res.send("Delete User");
 export const see = (req, res) => res.send("see User");

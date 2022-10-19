@@ -1,14 +1,15 @@
 import express from "express";
 import {
   deleteAccount,
-  edit,
+  getEdit,
+  postEdit,
   logout,
   see,
 } from "../controllers/userController";
 
 const userRouter = express.Router();
 
-userRouter.get("/edit", edit);
+userRouter.route("/edit").get(getEdit).post(postEdit);
 userRouter.get("/deleteAccount", deleteAccount);
 userRouter.get("/logout", logout);
 userRouter.get("/:id", see);
