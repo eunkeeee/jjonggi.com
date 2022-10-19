@@ -1,5 +1,5 @@
 import { passwordStrength } from "check-password-strength";
-
+import bcrypt from "bcrypt";
 import User from "../models/User";
 
 // 회원가입
@@ -67,17 +67,26 @@ export const postLogin = async (req, res) => {
       errorMessage: "An account with this username does not exist!",
     });
   }
+  // password가 맞는지 확인 ㅋㅋㅋ (왜 이걸 안함)
+  const correctPassword = await bcrypt.compare(password, user.password);
+  if (!correctPassword) {
+    return res
+      .status(500)
+      .render("login", { pageTitle: "Login", errorMessage: "Wrong Password!" });
+  }
   req.session.loggedIn = true;
   req.session.user = user;
   return res.redirect("/");
 };
 
+// 로그아웃
 export const logout = (req, res) => {
   req.session.user = null;
   req.session.loggedIn = false;
   return res.redirect("/");
 };
 
+// 회원 정보 수정
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
 };
@@ -114,6 +123,35 @@ export const postEdit = async (req, res) => {
   // session에도 update
   req.session.user = updatedUser;
   return res.redirect("/users/edit");
+};
+
+// 비밀번호 변경
+export const getChangePassword = (req, res) => {
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+export const postChangePassword = async (req, res) => {
+  const {
+    body: { currentPassword, password, password2 },
+  } = req;
+
+  if (password !== password2) {
+    return res.status(400).render("change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "Password confirmation does not match!",
+    });
+  }
+
+  // 기존 pw이 맞는지 확인
+  const correctCurrentPassword = await bcrypt.compare(
+    currentPassword,
+    req.session.user.password
+  );
+  if (!correctCurrentPassword) {
+    return res.status(500).render("change-password", {
+      pageTitle: "Change Password",
+      errorMessage: "Please write a correct current password!",
+    });
+  }
 };
 export const deleteAccount = (req, res) => res.send("Delete User");
 export const see = (req, res) => res.send("see User");
