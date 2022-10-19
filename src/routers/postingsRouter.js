@@ -9,7 +9,7 @@ import {
   getUpload,
   postUpload,
 } from "../controllers/postingsController/uploadPostingController";
-import { loginOnlyMiddleWare } from "../middleware";
+import { loginOnlyMiddleWare, postingUpload } from "../middleware";
 
 const postingsRouter = express.Router();
 
@@ -23,7 +23,7 @@ postingsRouter
   .route("/upload")
   .all(loginOnlyMiddleWare)
   .get(getUpload)
-  .post(postUpload);
+  .post(postingUpload.array("photos", 10), postUpload);
 postingsRouter.get(
   "/:id([0-9a-f]{24})/delete",
   loginOnlyMiddleWare,
