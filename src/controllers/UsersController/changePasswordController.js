@@ -12,8 +12,7 @@ export const postChangePassword = async (req, res) => {
     },
     body: { currentPassword, newPassword, newPassword2 },
   } = req;
-  const currentUser = await User.findOne({ _id });
-  const { name, username, email, password: hashedPassword } = currentUser;
+  const user = await User.findOne({ _id });
   if (newPassword !== newPassword2) {
     return res.status(400).render("users/change-password", {
       pageTitle: "Change Password",
@@ -24,11 +23,10 @@ export const postChangePassword = async (req, res) => {
   // 기존 pw이 맞는지 확인
   const correctCurrentPassword = await bcrypt.compare(
     currentPassword,
-    hashedPassword
+    user.password
   );
-  console.log("이전 PW도 맞췄음");
   console.log("내가 적은거:", currentPassword);
-  console.log("DB에 저장된거:", hashedPassword);
+  console.log("DB에 저장된거:", user.password);
   if (!correctCurrentPassword) {
     return res.status(500).render("users/change-password", {
       pageTitle: "Change Password",
@@ -36,18 +34,8 @@ export const postChangePassword = async (req, res) => {
     });
   }
   // 새로운 pw를 저장하기
-  const updatedUser = await User.findByIdAndUpdate(
-    _id,
-    {
-      name,
-      username,
-      email,
-      password: newPassword,
-    },
-    { new: true } // You should set the new option to true to return the document after update was applied.
-  );
-  console.log("디비에 업데이트완료");
-  req.session.user = updatedUser;
-  console.log("세션도 업데이트 완료");
+  console.log("OLD: ", user.password);
+  user.password = newPassword;
+  await user.save(); // save를 해야 pre save fn이 실행되며 pw가 hashing되어 저장됨
   return res.redirect("/");
 };
