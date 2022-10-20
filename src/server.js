@@ -40,6 +40,7 @@ app.use((req, res, next) => {
 // LOCALS middleware
 app.use(localsMiddleWare);
 app.use("/uploads", express.static("uploads")); // 그냥 정적 폴더의 내용 보여줘라!
+app.use("/static", express.static("assets"));
 
 app.use("/users", userRouter);
 app.use("/postings", postingsRouter);
