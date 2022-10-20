@@ -26,7 +26,7 @@ export const postUpload = async (req, res) => {
     });
     const user = await User.findById(_id);
     user.postings.push(newPosting._id);
-    user.save(); // pre save fn ... pw hashing 발생...
+    user.save();
     return res.redirect("/");
   } catch (error) {
     return res.status(400).render("postings/upload", {
