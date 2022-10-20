@@ -1,4 +1,5 @@
 import Posting from "../../models/Posting";
+import User from "../../models/User";
 
 // Upload
 export const getUpload = (req, res) => {
@@ -17,12 +18,15 @@ export const postUpload = async (req, res) => {
     imgsUrl.push(element.path);
   });
   try {
-    await Posting.create({
+    const newPosting = await Posting.create({
       caption,
       imgsUrl,
       hashtags: Posting.formatHashtags(caption),
       owner: _id,
     });
+    const user = await User.findById(_id);
+    user.postings.push(newPosting._id);
+    user.save();
     return res.redirect("/");
   } catch (error) {
     return res.status(400).render("postings/upload", {

@@ -6,7 +6,7 @@ block content
     div email: #{user.email}
     div username: #{user.username}
     div postings: 
-        each posting in postings
+        each posting in user.postings
             +post(posting)
         else 
             span 게시글 없음.

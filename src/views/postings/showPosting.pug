@@ -5,7 +5,7 @@ block content
     +post(posting)
     div
         span Uploaded by #{posting.owner.name}
-    if String(posting.owner) === String(loggedInUser._id)
+    if String(posting.owner._id) === String(loggedInUser._id)
         a(href=`${posting.id}/edit`) Edit Posting &rarr;
         br
         a(href=`${posting.id}/delete`) Delete Posting &rarr;
