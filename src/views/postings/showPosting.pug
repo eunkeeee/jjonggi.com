@@ -4,7 +4,7 @@ include ../mixins/post
 block content 
     +post(posting)
     div
-        span Uploaded by #{owner.name}
+        span Uploaded by #{posting.owner.name}
     if String(posting.owner) === String(loggedInUser._id)
         a(href=`${posting.id}/edit`) Edit Posting &rarr;
         br

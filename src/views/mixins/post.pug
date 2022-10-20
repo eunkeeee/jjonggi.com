@@ -8,7 +8,7 @@ mixin post(info)
         div 
             span #{info.meta.likes} likes
         div 
-            span=info.owner
+            span=info.owner.username
             span  #{info.caption}
         div 
             if !info.updatedAt

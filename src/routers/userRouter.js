@@ -1,5 +1,5 @@
 import express from "express";
-import { deleteAccount, see } from "../controllers/userController";
+import { deleteAccount } from "../controllers/userController";
 import {
   getChangePassword,
   postChangePassword,
@@ -9,6 +9,7 @@ import {
   postEdit,
 } from "../controllers/UsersController/editProfileController";
 import { logout } from "../controllers/UsersController/loginController";
+import { see } from "../controllers/UsersController/profileController";
 import { loginOnlyMiddleWare, avatarUpload } from "../middleware";
 
 const userRouter = express.Router();

@@ -1,0 +1,12 @@
+extends ../base 
+include ../mixins/post
+
+block content 
+    div name: #{user.name}
+    div email: #{user.email}
+    div username: #{user.username}
+    div postings: 
+        each posting in postings
+            +post(posting)
+        else 
+            span 게시글 없음.

@@ -15,15 +15,13 @@ export const showPosting = async (req, res) => {
   const {
     params: { id },
   } = req;
-  const posting = await Posting.findById(id);
-  const owner = await User.findById(posting.owner);
+  const posting = await Posting.findById(id).populate("owner");
   if (!posting) {
     return res.render("404error", { pageTitle: "Posting not found." });
   }
   return res.render("postings/showPosting", {
-    pageTitle: `${owner.name}님의 게시글`,
+    pageTitle: `${posting.owner.name}님의 게시글`,
     posting,
-    owner,
   });
 };
 
